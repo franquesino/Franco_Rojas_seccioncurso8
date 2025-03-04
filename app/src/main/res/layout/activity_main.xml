@@ -29,13 +29,13 @@
         android:id="@+id/btnAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sumar Binarios"/>
+        android:text="Sumar"/>
 
     <Button
         android:id="@+id/btnSubtract"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Restar Binarios"/>
+        android:text="Restar"/>
 
     <TextView
         android:id="@+id/resultView"

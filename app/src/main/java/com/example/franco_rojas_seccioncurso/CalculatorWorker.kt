@@ -18,22 +18,40 @@ class CalculatorWorker(context: Context, workerParams: WorkerParameters) : Worke
 
         return try {
             val result = when (operationType) {
-                "toBinary" -> number.toInt().toString(2)
-                "toDecimal" -> Integer.parseInt(number, 2).toString()
-                "add" -> {
-                    val numbers = number.split("+").map { it.trim().toInt(2) }
-                    numbers.sum().toString(2)
-                }
-                "subtract" -> {
-                    val numbers = number.split("-").map { it.trim().toInt(2) }
-                    if (numbers.size == 2) (numbers[0] - numbers[1]).toString(2) else "Error"
-                }
+                "toBinary" -> number.toInt().toString(2)  // Decimal a Binario
+                "toDecimal" -> Integer.parseInt(number, 2).toString()  // Binario a Decimal
+                "add" -> performAddition(number)
+                "subtract" -> performSubtraction(number)
                 else -> "Operación no válida"
             }
             sendNotification("Resultado de $operationType", result)
             Result.success(androidx.work.Data.Builder().putString("result", result).build())
         } catch (e: Exception) {
             Result.failure()
+        }
+    }
+
+    private fun performAddition(input: String): String {
+        return if (input.contains("b")) {
+            // Suma en Binario
+            val numbers = input.split("+").map { it.trim().replace("b", "").toInt(2) }
+            numbers.sum().toString(2) + "b"
+        } else {
+            // Suma en Decimal
+            val numbers = input.split("+").map { it.trim().toInt() }
+            numbers.sum().toString()
+        }
+    }
+
+    private fun performSubtraction(input: String): String {
+        return if (input.contains("b")) {
+            // Resta en Binario
+            val numbers = input.split("-").map { it.trim().replace("b", "").toInt(2) }
+            if (numbers.size == 2) (numbers[0] - numbers[1]).toString(2) + "b" else "Error"
+        } else {
+            // Resta en Decimal
+            val numbers = input.split("-").map { it.trim().toInt() }
+            if (numbers.size == 2) (numbers[0] - numbers[1]).toString() else "Error"
         }
     }
 
@@ -57,7 +75,6 @@ class CalculatorWorker(context: Context, workerParams: WorkerParameters) : Worke
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
 
-        // Verificar el permiso antes de enviar la notificación
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
             ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.POST_NOTIFICATIONS) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
             NotificationManagerCompat.from(applicationContext).notify(System.currentTimeMillis().toInt(), notification)
