@@ -1,4 +1,4 @@
-package com.example.franco_rojas_seccioncurso
+package com.appIngeCorp.franco_rojas_seccioncurso
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

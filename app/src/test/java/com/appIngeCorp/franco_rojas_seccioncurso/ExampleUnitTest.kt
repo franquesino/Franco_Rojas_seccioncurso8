@@ -1,4 +1,4 @@
-package com.example.franco_rojas_seccioncurso
+package com.appIngeCorp.franco_rojas_seccioncurso
 
 import org.junit.Test
 

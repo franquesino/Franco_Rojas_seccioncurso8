@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.franco_rojas_seccioncurso"
+    namespace = "com.appIngeCorp.franco_rojas_seccioncurso"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.franco_rojas_seccioncurso"
+        applicationId = "com.appIngeCorp.franco_rojas_seccioncurso"
         minSdk = 30
         targetSdk = 35
         versionCode = 1

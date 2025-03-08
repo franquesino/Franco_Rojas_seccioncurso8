@@ -1,4 +1,4 @@
-package com.example.franco_rojas_seccioncurso
+package com.appIngeCorp.franco_rojas_seccioncurso
 
 import android.Manifest
 import android.app.NotificationChannel
